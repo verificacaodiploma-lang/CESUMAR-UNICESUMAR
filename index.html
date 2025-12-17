@@ -1,144 +1,51 @@
-<!doctype html>
+<script>
+  function buscarRegistro(){
+    const valor = document.getElementById('busca').value.trim();
+    const status = document.getElementById('status');
+    const resultado = document.getElementById('resultado');
 
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UniCesumar — Verificação de Registro</title>
-  <style>
-    :root{
-      --bg:#f4f6fb;
-      --card:#ffffff;
-      --accent:#1976d2; /* Azul UniCesumar */
-      --text:#222;
-      --muted:#666;
-      --ok:#2e7d32;
-      --border:#e0e0e0;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:linear-gradient(135deg,#eef3ff,#f7f9ff);
-      color:var(--text);
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding:16px;
-    }
-    .card{
-      width:100%;
-      max-width:760px;
-      background:var(--card);
-      border-radius:16px;
-      box-shadow:0 12px 30px rgba(0,0,0,.12);
-      padding:24px;
-    }
-    .header{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      border-bottom:1px solid var(--border);
-      padding-bottom:14px;
-      margin-bottom:16px;
-    }
-    .logo{
-      width:56px;height:56px;border-radius:12px;
-      background:var(--accent);color:#fff;
-      display:grid;place-items:center;font-weight:800;letter-spacing:.5px
-    }
-    .title h1{font-size:1.25rem;margin:0}
-    .title p{margin:4px 0 0;color:var(--muted);font-size:.95rem}
-    .search{
-      margin:16px 0 18px;
-      background:#fafafa;border:1px solid var(--border);
-      border-radius:12px;padding:14px
-    }
-    .search label{display:block;font-size:.85rem;color:var(--muted)}
-    .search .row{display:flex;gap:10px;margin-top:8px}
-    .search input{
-      flex:1;padding:12px 14px;border-radius:10px;
-      border:1px solid #ccc;font-size:.95rem
-    }
-    .search button{
-      padding:12px 16px;border:none;border-radius:10px;
-      background:var(--accent);color:#fff;font-weight:700;cursor:pointer
-    }
-    .status{
-      display:none;margin:10px 0 16px;padding:12px 14px;
-      border-radius:12px;background:#e8f5e9;color:var(--ok);
-      font-weight:700
-    }
-    .grid{
-      display:none;
-      grid-template-columns:1fr 1fr;
-      gap:14px 18px
-    }
-    .item{background:#fafafa;border:1px solid var(--border);border-radius:12px;padding:12px 14px}
-    .item span{display:block;color:var(--muted);font-size:.85rem}
-    .item strong{display:block;margin-top:4px;font-size:.98rem}
-    .footer{
-      margin-top:20px;padding-top:14px;border-top:1px dashed #ddd;
-      font-size:.85rem;color:var(--muted);text-align:center
-    }
-    @media(max-width:640px){.grid{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-  <main class="card">
-    <header class="header">
-      <div class="logo">UC</div>
-      <div class="title">
-        <h1>Universidade Cesumar (UniCesumar)</h1>
-        <p>Sistema de Verificação de Registro Acadêmico</p>
-      </div>
-    </header><section class="search">
-  <label for="busca">Pesquisar por número de registro</label>
-  <div class="row">
-    <input id="busca" type="text" placeholder="Ex.: 576456-86">
-    <button onclick="buscarRegistro()">Consultar</button>
-  </div>
-</section>
-
-<div id="status" class="status">✔ Registro encontrado — Diploma Ativo</div>
-
-<section id="resultado" class="grid" aria-label="Dados do Registro">
-  <div class="item"><span>Nome do Aluno</span><strong id="nome"></strong></div>
-  <div class="item"><span>Instituição</span><strong id="instituicao"></strong></div>
-  <div class="item"><span>Curso</span><strong id="curso"></strong></div>
-  <div class="item"><span>Data de Conclusão</span><strong id="conclusao"></strong></div>
-  <div class="item"><span>Número de Registro</span><strong id="registro"></strong></div>
-  <div class="item"><span>Situação</span><strong id="situacao"></strong></div>
-</section>
-
-<footer class="footer">
-  Este comprovante digital é gerado para fins de conferência de dados acadêmicos.
-</footer>
-
-  </main>  <script>
-    function buscarRegistro(){
-      const valor = document.getElementById('busca').value.trim();
-      const status = document.getElementById('status');
-      const resultado = document.getElementById('resultado');
-
-      if(valor === '576456-86'){
-        document.getElementById('nome').innerText = 'Cássio Augusto Rosa';
-        document.getElementById('instituicao').innerText = 'Universidade Cesumar (UniCesumar)';
-        document.getElementById('curso').innerText = 'Pós-Graduação em Engenharia Mecatrônica';
-        document.getElementById('conclusao').innerText = '14/08/2020';
-        document.getElementById('registro').innerText = '576456-86';
-        document.getElementById('situacao').innerText = 'Regular';
-        status.style.display = 'block';
-        resultado.style.display = 'grid';
-      } else if(valor === ''){
-        alert('Digite um número de registro.');
-        status.style.display = 'none';
-        resultado.style.display = 'none';
-      } else {
-        alert('Registro não localizado.');
-        status.style.display = 'none';
-        resultado.style.display = 'none';
+    const registros = {
+      "576456-86": {
+        nome: "Cássio Augusto Rosa",
+        instituicao: "Universidade Cesumar (UniCesumar)",
+        curso: "Pós-Graduação em Engenharia Mecatrônica",
+        conclusao: "14/08/2020",
+        registro: "576456-86",
+        situacao: "Regular"
+      },
+      "56774-75": {
+        nome: "Miriam Cristina Tavares Rossetto",
+        instituicao: "Universidade Cesumar (UniCesumar)",
+        curso: "Licenciatura em Pedagogia",
+        conclusao: "10/12/2025",
+        registro: "56774-75",
+        situacao: "Regular"
       }
+    };
+
+    if(valor === ""){
+      alert("Digite um número de registro.");
+      status.style.display = "none";
+      resultado.style.display = "none";
+      return;
     }
-  </script></body>
-                                           </html>
+
+    if(registros[valor]){
+      const dados = registros[valor];
+
+      document.getElementById("nome").innerText = dados.nome;
+      document.getElementById("instituicao").innerText = dados.instituicao;
+      document.getElementById("curso").innerText = dados.curso;
+      document.getElementById("conclusao").innerText = dados.conclusao;
+      document.getElementById("registro").innerText = dados.registro;
+      document.getElementById("situacao").innerText = dados.situacao;
+
+      status.style.display = "block";
+      resultado.style.display = "grid";
+    } else {
+      alert("Registro não localizado.");
+      status.style.display = "none";
+      resultado.style.display = "none";
+    }
+  }
+</script>
